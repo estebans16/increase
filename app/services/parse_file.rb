@@ -53,11 +53,11 @@ class ParseFile
   end
 
   def find_client(external_client_id)
-    client = Client.where(external_client_id: external_client_id)
-    if client.empty?
-      response = External::IncreaseApi.client(external_client_id)
-      client = Client.new(response.body)
-      client.external_client_id = response.body['id']
+    client = Client.find_by(external_client_id: external_client_id)
+    unless client
+      res = External::IncreaseApi.client(external_client_id)
+      params = res.body.select { |key| Client::PARAMS.include?(key.to_sym) }
+      client = Client.new(params.merge(external_client_id: external_client_id))
     end
 
     client

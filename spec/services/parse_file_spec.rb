@@ -14,7 +14,7 @@ describe 'Parse file' do
     expect(payment.total_discount).to eq(852_628)
     expect(payment.total_with_discounts).to eq(27_310_780)
     expect(payment.payment_date).to eq(Date.iso8601('20201201'))
-    expect(payment.client.external_client_id).to eq('aeesadqwesaderfvmnxcnncnnnasd66553')
+    expect(payment.client.external_client_id).to eq('aee603927f1a4a719a5f02656803c553')
   end
 
   it 'Succes payment transactions' do
