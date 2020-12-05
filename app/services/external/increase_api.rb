@@ -2,7 +2,8 @@
 module External
   # Client for Increase API
   module IncreaseApi
-    Response = Struct.new(:status, :body)
+    ResponseClient = Struct.new(:status, :body)
+    ResponseFile = Struct.new(:status, :file)
 
     @connection = Faraday.new(
       url: ENV['CLIENT_API_HOST'],
@@ -14,12 +15,15 @@ module External
 
     def self.client(id)
       res = @connection.get("clients/#{id}")
-      Response.new(res.status, JSON.parse(res.body))
+      ResponseClient.new(res.status, JSON.parse(res.body))
     end
 
     def self.file
-      res = @connection.get('file.txt')
-      Response.new(res.status, JSON.parse(res.body))
+      res = @connection.get('file.txt', { 'Content-Type': 'text/plain; charset=UTF-8' })
+      temp = Tempfile.create('api_file', './tmp')
+      temp.write(res.body)
+      temp.rewind
+      ResponseFile.new(res.status, temp)
     end
   end
 end
