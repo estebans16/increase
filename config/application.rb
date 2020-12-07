@@ -25,6 +25,7 @@ module Increase
     config.load_defaults 6.0
     config.time_zone = 'Buenos Aires'
     config.autoload_paths << Rails.root.join('app', 'services')
+    config.autoload_paths << Rails.root.join('app', 'managers')
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

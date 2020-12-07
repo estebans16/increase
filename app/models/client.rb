@@ -4,6 +4,7 @@ class Client < ApplicationRecord
   has_many :payments
 
   PARAMS = [
+    :id,
     :email,
     :first_name,
     :last_name,

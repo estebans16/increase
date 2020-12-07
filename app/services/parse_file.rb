@@ -56,7 +56,7 @@ class ParseFile
     client = Client.find_by(external_client_id: external_client_id)
     unless client
       res = External::IncreaseApi.client(external_client_id)
-      params = res.body.select { |key| Client::PARAMS.include?(key.to_sym) }
+      params = res.body.except('id')
       client = Client.new(params.merge(external_client_id: external_client_id))
     end
 
