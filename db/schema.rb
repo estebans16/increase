@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_11_28_140220) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "clients", force: :cascade do |t|
     t.string "email"
     t.string "first_name"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_11_28_140220) do
   create_table "discounts", force: :cascade do |t|
     t.float "amount"
     t.integer "discount_type"
-    t.integer "payment_id", null: false
+    t.bigint "payment_id", null: false
     t.string "external_discount_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -42,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_11_28_140220) do
     t.float "total_discount"
     t.float "total_with_discounts"
     t.date "payment_date"
-    t.integer "client_id", null: false
+    t.bigint "client_id", null: false
     t.string "external_payment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -53,7 +56,7 @@ ActiveRecord::Schema.define(version: 2020_11_28_140220) do
   create_table "transactions", force: :cascade do |t|
     t.float "amount"
     t.boolean "approved", default: false
-    t.integer "payment_id", null: false
+    t.bigint "payment_id", null: false
     t.string "external_transaction_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
