@@ -1,7 +1,17 @@
 development:
   CLIENT_API_HOST: 'http://localhost:4000'
   API_TOKEN: ''
+  DATABASE_NAME:       'increase_development'
+  DATABASE_USER:       'postgres'
+  DATABASE_PASSWORD:   'postgres'
+  DATABASE_HOST:       'localhost'
+  DATABASE_PORT:       '5432'
 
-production:
-  CLIENT_API_HOST: 'host'
-  API_TOKEN: 'tokenapi'
+test: 
+  CLIENT_API_HOST: 'http://localhost:4000'
+  API_TOKEN: ''
+  DATABASE_NAME:       'increase_test'
+  DATABASE_USER:       'postgres'
+  DATABASE_PASSWORD:   'postgres'
+  DATABASE_HOST:       'localhost'
+  DATABASE_PORT:       '5432'
