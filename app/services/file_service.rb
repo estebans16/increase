@@ -17,7 +17,7 @@ class FileService
 
   def save_payments(payments)
     payments.each do |payment|
-      next log_invalid_client(payment) unless payment.client.valid?
+      next unless payment.client.valid?
 
       payment.save
     end
@@ -25,9 +25,5 @@ class FileService
 
   def logger
     FileLog.warn('Error on get file')
-  end
-
-  def log_invalid_client(payment)
-    FileLog.warn("Error on get Client id: #{payment.client.external_client_id}")
   end
 end

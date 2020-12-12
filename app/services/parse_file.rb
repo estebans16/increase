@@ -54,12 +54,18 @@ class ParseFile
 
   def find_client(external_client_id)
     client = Client.find_by(external_client_id: external_client_id)
-    unless client
-      res = External::IncreaseApi.client(external_client_id)
-      params = res.body.except('id')
-      client = Client.new(params.merge(external_client_id: external_client_id))
-    end
+    client ||= find_client_in_api(external_client_id) unless client
 
     client
+  end
+
+  def find_client_in_api(external_client_id)
+    res = External::IncreaseApi.client(external_client_id)
+    if res.status == 200
+      params = res.body.except('id')
+      return Client.new(params.merge(external_client_id: external_client_id))
+    end
+    FileLog.warn("Error on get Client id: #{external_client_id}")
+    Client.new
   end
 end
