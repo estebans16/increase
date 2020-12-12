@@ -65,6 +65,9 @@ class ParseFile
       params = res.body.except('id')
       return Client.new(params.merge(external_client_id: external_client_id))
     end
+    Client.new
+
+  rescue
     FileLog.warn("Error on get Client id: #{external_client_id}")
     Client.new
   end
