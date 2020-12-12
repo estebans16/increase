@@ -16,6 +16,8 @@ module External
     def self.client(id)
       res = @connection.get("clients/#{id}")
       ResponseClient.new(res.status, JSON.parse(res.body))
+    rescue Faraday::ConnectionFailed
+      ResponseClient.new(500)
     end
 
     def self.file
@@ -24,6 +26,8 @@ module External
       temp.write(res.body)
       temp.rewind
       ResponseFile.new(res.status, temp)
+    rescue Faraday::ConnectionFailed
+      ResponseClient.new(500)
     end
   end
 end
