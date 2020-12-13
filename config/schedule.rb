@@ -20,8 +20,9 @@
 # Learn more: http://github.com/javan/whenever
 
 env :PATH, ENV['PATH']
-set :environment, 'development'
+set :environment, ENV["RAILS_ENV"]
 set :output, "log/cron_log.log"
+ENV.each { |k, v| env(k, v) }
 
 every 10.minute do
   rake "file:process"
