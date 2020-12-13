@@ -1,0 +1,52 @@
+version: '3.6'
+services:
+  postgres.db:
+    image: postgres
+    volumes: 
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - increase_net
+  increase:
+    build: .
+    command: bash -c "rm -rf tmp/pids && bundle exec rails s -p 5000 -b '0.0.0.0'"
+    ports:
+      - 5000:5000
+    environment:
+      - DATABASE_NAME=increase_production
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=postgres.db
+      - CLIENT_API_HOST=
+      - API_TOKEN=
+      - RAILS_ENV=production
+    depends_on: 
+      - postgres.db
+    networks:
+      - increase_net
+  
+  cron_job:
+    build: .
+    command: bash -c "bundle exec whenever --update-crontab && cron -f"
+    environment:
+      - DATABASE_NAME=increase_production
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=postgres.db
+      - CLIENT_API_HOST=
+      - API_TOKEN=
+      - RAILS_ENV=production
+    depends_on:
+      - postgres.db
+    networks:
+      - increase_net
+
+networks:
+  increase_net:
+    driver: bridge
+
+volumes:
+  pgdata:
