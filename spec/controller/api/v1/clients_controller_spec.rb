@@ -6,7 +6,7 @@ RSpec.describe('Api::V1::ClientesController', type: :request) do
   }
 
   let(:valid_headers) {
-    { 'Authorization': 'Bearer #{ENV['API_TOKEN']}' }
+    { 'Authorization': "Bearer #{ENV['API_TOKEN']}" }
   }
 
   before(:each) do
