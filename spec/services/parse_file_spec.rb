@@ -1,4 +1,6 @@
 require 'rails_helper'
+
+# rubocop:disable Metrics/BlockLength
 describe 'Parse file' do
   before(:each) do
     file = File.open('./spec/support/fixtures/file.txt')
@@ -39,3 +41,4 @@ describe 'Parse file' do
     expect(first_discount.discount_type).to eq('iva')
   end
 end
+# rubocop:enable Metrics/BlockLength
