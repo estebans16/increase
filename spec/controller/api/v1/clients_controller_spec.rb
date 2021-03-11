@@ -1,5 +1,6 @@
 require('rails_helper')
 
+# rubocop:disable Metrics/BlockLength
 RSpec.describe('Api::V1::ClientesController', type: :request) do
   let(:valid_attributes) {
     FactoryBot.attributes_for(:client)
@@ -56,3 +57,4 @@ RSpec.describe('Api::V1::ClientesController', type: :request) do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
